@@ -11,7 +11,7 @@ import static com.api.utils.ConfigManager.*;
 
 import static io.restassured.RestAssured.*;
 
-
+ 
 public class MasterAPITest {
 	
 	@Test
