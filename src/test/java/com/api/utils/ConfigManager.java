@@ -10,8 +10,6 @@ import java.util.Properties;
 import org.codehaus.groovy.runtime.callsite.PogoGetPropertySite;
 
 public class ConfigManager {
-	// I want a programmed to read the Properties file from
-	// sre/test/resources/config/config.properties
 
 	private static Properties prop = new Properties();
 	private static String path = "config/config.properties";
