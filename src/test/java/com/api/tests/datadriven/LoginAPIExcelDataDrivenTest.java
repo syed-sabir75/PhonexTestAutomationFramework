@@ -21,9 +21,9 @@ public class LoginAPIExcelDataDrivenTest {
 			"datadriven" }, dataProviderClass = com.dataproviders.DataProviderUtils.class,
 
 			dataProvider = "LoginAPIExcelDataProvider")
-	public void loginAPITest(UserCredentials userCredentials) {
+	public void loginAPITest(UserBean userBean) {
 
-		given().spec(requestSpec(userCredentials)).when().post("login").then().spec(responseSpec_OK())
+		given().spec(requestSpec(userBean)).when().post("login").then().spec(responseSpec_OK())
 				.body("message", equalTo("Success")).and()
 				.body(matchesJsonSchemaInClasspath("response-schema/LoginResponseSchema.json"));
 	}
