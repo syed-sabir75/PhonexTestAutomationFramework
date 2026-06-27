@@ -56,7 +56,9 @@ public class CreateJobPayloadDataDao {
 
 			LIMIT 5;
 			                 """;
-
+    private CreateJobPayloadDataDao() {
+    	
+    }
 	public static List<CreateJobBean> getCreateJobPayLoadData() {
 		// I need the connection --- DatabaseManager
 		Connection conn = null;
