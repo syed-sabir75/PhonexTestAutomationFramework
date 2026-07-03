@@ -51,7 +51,7 @@ public class CreateJobAPIWithDBValidationTest {
 	public void setup() {
 		customer = new Customer("Syed", "Sabir", "9598361803", "", "syedsabir430@gmail.com", "");
 		customerAddress = new CustomerAddress("C 404", "Vasant Galaxy", "Bangur Nagar", "Inorbit", "Mumbai", "411039", "India", "Maharashtra");
-		customerProduct = new CustomerProduct(getTimeWithDaysAgo(10), "35323435988568", "35323435988568", "35323435988568", getTimeWithDaysAgo(10), Product.NEXUS_2.getCode(), Model.NEXUS_2_BLUE.getCode());
+		customerProduct = new CustomerProduct(getTimeWithDaysAgo(10), "35323435988560", "35323435988560", "35323435988560", getTimeWithDaysAgo(10), Product.NEXUS_2.getCode(), Model.NEXUS_2_BLUE.getCode());
 		Problems problems = new Problems(Problem.SMARTPHONE_IS_RUNNING_SLOW.getCode(), "Battery Issue");
 		
 		List<Problems> problemList = new ArrayList<Problems>();
