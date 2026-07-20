@@ -12,6 +12,8 @@ public class DashboardService {
 	
 	public static final String COUNT_ENDPOINT="/dashboard/count";
 	
+	
+	private static final String DETAIL_ENDPOINT = "/dashboard/details";
 	public Response count(Role role) {
 		return given()
 		.spec(requestSpecWithAuth(role))
@@ -26,4 +28,12 @@ public class DashboardService {
 		.get(COUNT_ENDPOINT);
 
 }
+	public Response details(Role role, Object payload) {
+		return given()
+				.spec(requestSpecWithAuth(role))
+				.body(payload)
+				.when()
+				.post(DETAIL_ENDPOINT);
+				
+	}
 }
