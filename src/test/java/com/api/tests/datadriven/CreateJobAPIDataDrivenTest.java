@@ -1,5 +1,6 @@
 package com.api.tests.datadriven;
 
+import static com.api.utils.DateTimeUtil.getTimeWithDaysAgo;
 import static com.api.utils.SpecUtil.requestSpecWithAuth;
 import static com.api.utils.SpecUtil.responseSpec_OK;
 import static io.restassured.RestAssured.given;
@@ -7,27 +8,51 @@ import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInC
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.startsWith;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import com.api.constant.Model;
+import com.api.constant.OEM;
+import com.api.constant.Platform;
+import com.api.constant.Problem;
+import com.api.constant.Product;
 import com.api.constant.Role;
+import com.api.constant.ServiceLocation;
+import com.api.constant.Warranty_Status;
 import com.api.request.model.CreateJobPayload;
+import com.api.request.model.Customer;
+import com.api.request.model.CustomerAddress;
+import com.api.request.model.CustomerProduct;
+import com.api.request.model.Problems;
+import com.api.services.JobService;
 
 
 public class CreateJobAPIDataDrivenTest {
+	
+	private JobService jobService; 
+
+	
+	@BeforeMethod(description = "instantiating the Job Service")
+	public void setup() {
+		
+	    jobService = new JobService();
+	}
+	
 	
 	
 	@Test(description = "Verifying if Create job api is able to create Inwarranty jobs", groups= {"api", "regression", "dataDriven","csv"},
 	           dataProviderClass = com.dataproviders.DataProviderUtils.class,
 	           dataProvider = "CreateJobAPIJsonDataProvider"		
 			)
+	
 	public void createJobAPITest(CreateJobPayload createJobPayload) {
 		
 		//Creating the CreateJobPayload Object
 		
-		given()
-	    .spec(requestSpecWithAuth(Role.FD, createJobPayload)) 
-		.when()
-		.post("/job/create")
+		jobService.createJob(Role.FD, createJobPayload)
 		.then()
 		.spec(responseSpec_OK())
 		.body(matchesJsonSchemaInClasspath("response-schema/CreateJobAPIResponseSchema.json"))
