@@ -5,34 +5,30 @@ import java.io.InputStreamReader;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.dataproviders.api.bean.UserBean;
 import com.opencsv.CSVReader;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 
 public class CSVReaderUtil {
-	/*
-	 * 
-	 * Constructor is private
-	 * 
-	 * static - static methods! 
-	 * 
-	 * Job: Help me Read the CSV file and Map it a Bean
-	 * 
-	 */
+	private static final Logger LOGGER = LogManager.getLogger(CSVReaderUtil.class);
+
 	
 	private CSVReaderUtil() {
-		// No one can create Object of CSVReaderUtil Outside the class
-		// Singleton Class Constructors are private
+		
 	}
 	
 	public static <T> Iterator<T> loadCSV(String pathOfCSVFile, Class<T> bean)  {
+		LOGGER.info("Loading the CSV file from the path {}", pathOfCSVFile);
 		
 		InputStream	is=Thread.currentThread().getContextClassLoader().getResourceAsStream(pathOfCSVFile);
 			InputStreamReader isr = new InputStreamReader(is);
 			CSVReader csvReader = new CSVReader(isr); //CSVReader Constructor
 			
-			
+			LOGGER.info("converting the CSV to the Bean class {}", bean);
 			CsvToBean<T> csvToBean = new CsvToBeanBuilder(csvReader)
 					.withType(bean)
 					.withIgnoreEmptyLine(true)

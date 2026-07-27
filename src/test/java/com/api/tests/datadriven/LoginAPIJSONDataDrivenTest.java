@@ -29,7 +29,7 @@ public class LoginAPIJSONDataDrivenTest {
 			"datadriven" }, dataProviderClass = com.dataproviders.DataProviderUtils.class,
 
 			dataProvider = "LoginAPIJsonDataProvider")
-	public void loginAPITest(UserCredentials userCredentials) {
+	public void loginAPITest(UserBean userCredentials) {
 
 		authService.login(userCredentials).then().spec(responseSpec_OK()).body("message", equalTo("Success")).and()
 				.body(matchesJsonSchemaInClasspath("response-schema/LoginResponseSchema.json"));
