@@ -5,6 +5,7 @@ import static com.api.utils.ConfigManager.getProperty;
 import org.hamcrest.Matchers;
 
 import com.api.constant.Role;
+import com.api.filters.SensitiveDataFilter;
 import com.api.request.model.UserCredentials;
 
 import io.restassured.builder.RequestSpecBuilder;
@@ -34,6 +35,7 @@ public class SpecUtil {
 				.setContentType(ContentType.JSON)
 				.setAccept(ContentType.JSON)
 				.setBody(payload)
+				.addFilter(new SensitiveDataFilter())
 				.log(LogDetail.URI)
 				.log(LogDetail.METHOD)
 				.log(LogDetail.HEADERS)
