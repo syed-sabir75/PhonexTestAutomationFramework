@@ -1,4 +1,4 @@
-package com.listerners;
+package com.listeners;
 
 public interface IDemo {
 	 
