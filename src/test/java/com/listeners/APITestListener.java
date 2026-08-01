@@ -1,4 +1,4 @@
-package com.listerners;
+package com.listeners;
 
 import java.util.Arrays;
 
@@ -8,9 +8,9 @@ import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
-public class APITestListerner implements ITestListener {
+public class APITestListener implements ITestListener {
 
-	private static final Logger LOGGER = LogManager.getLogger(APITestListerner.class);
+	private static final Logger LOGGER = LogManager.getLogger(APITestListener.class);
 
 	public void onTestStart(ITestResult result) {
 		LOGGER.info("**********************************************************");

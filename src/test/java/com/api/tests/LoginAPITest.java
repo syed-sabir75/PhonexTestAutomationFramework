@@ -14,7 +14,7 @@ import com.api.request.model.UserCredentials;
 import com.api.services.AuthService;
 import com.dataproviders.api.bean.UserBean;
 
-@Listeners(com.listerners.APITestListerner.class)
+@Listeners(com.listeners.APITestListener.class)
 public class LoginAPITest {
 	
 	private UserBean userCredentials; 
