@@ -15,6 +15,13 @@
   
    <build>
        <plugins>
+       
+       <plugin>
+	<groupId>io.qameta.allure</groupId>
+	<artifactId>allure-maven</artifactId>
+	<version>2.12.0</version>
+</plugin>
+       
        <plugin>
     <groupId>org.apache.maven.plugins</groupId>
     <artifactId>maven-surefire-plugin</artifactId>
@@ -23,6 +30,11 @@
         <suiteXmlFiles>
             <suiteXmlFile>${suiteXmlFile}</suiteXmlFile>
         </suiteXmlFiles>
+        
+        <systemPropertyVariables>
+        <allure.results.directory>${project.build.directory}/allure-results</allure.results.directory>
+        </systemPropertyVariables>
+        
     </configuration>
 </plugin>
       </plugins>
@@ -155,8 +167,12 @@
     <version>2.25.3</version>
     <scope>compile</scope>
 </dependency>
-
-    
-  </dependencies>
-  
+<!-- Source: https://mvnrepository.com/artifact/io.qameta.allure/allure-testng -->
+<dependency>
+    <groupId>io.qameta.allure</groupId>
+    <artifactId>allure-testng</artifactId>
+    <version>2.32.0</version>
+    <scope>compile</scope>
+</dependency>
+</dependencies>
 </project>
