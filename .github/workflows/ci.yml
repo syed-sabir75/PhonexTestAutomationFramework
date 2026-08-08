@@ -59,12 +59,12 @@ jobs:
       if: always()
       run: mvn allure:report
 
-    - name : Creating github page branch
+    - name: Creating github page branch
       if: always()
       uses: peaceiris/actions-gh-pages@v4.0.0
       with:
-          github_token: ${{ github.token }}
-          publish_dir: target/site/allure-maven-plugin
+        github_token: ${{ github.token }}
+        publish_dir: target/site/allure-maven-plugin
           
     - name: Upload a Build Artifact
       if: always()
