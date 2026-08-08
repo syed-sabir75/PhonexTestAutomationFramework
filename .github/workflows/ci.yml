@@ -5,7 +5,7 @@ on:
     branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
-  schedule: # Set the CRON for MIDNIGHT IST 
+  schedule: # Set the CRON for MIDNIGHT IST ---- UTC
     - cron: "30 18 * * *"
     - cron: "30 17 * * *"
     - cron: "30 16 * * *"
@@ -39,20 +39,19 @@ jobs:
         distribution: 'temurin'
         cache: maven
 
-
     - name: Creating the .env file
       run: |
             echo "DB_URL=${{ secrets.DB_URL }}" >> .env
             echo "DB_USERNAME=${{ secrets.DB_USERNAME }}" >> .env
             echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env
-
+    
 
     - name: Default Values for Execution
       id: default
       run: |
-            echo "suiteXmlFile=${{ github.event.inputs. suiteXmlFile || 'testng.xml'}}" >> $GITHUB_OUTPUT
+            echo "suiteXmlFile=${{ github.event.inputs.suiteXmlFile || 'testng.xml'}}" >> $GITHUB_OUTPUT
             echo "env=${{ github.event.inputs.env || 'qa' }}" >> $GITHUB_OUTPUT
-        
+
     - name: Execute Test Automation Framework
       run: mvn clean test -DsuiteXmlFile="${{ steps.default.outputs.suiteXmlFile }}" -Denv="${{ steps.default.outputs.env }}"
 
@@ -66,14 +65,11 @@ jobs:
       with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: target/site/allure-maven-plugin
-  
+          
     - name: Upload a Build Artifact
       if: always()
-      uses: actions/upload-artifact@v7.0.1
+      uses: actions/upload-artifact@v4.6.2
       with:
-        Name: Surefire Report
+        name: SureFire Report
         path: target/surefire-reports/
         retention-days: 10
-      
-
-    
