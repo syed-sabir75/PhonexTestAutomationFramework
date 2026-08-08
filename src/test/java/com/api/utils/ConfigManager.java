@@ -1,31 +1,29 @@
 package com.api.utils;
 
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.codehaus.groovy.runtime.callsite.PogoGetPropertySite;
+
+import io.qameta.allure.Step;
 
 public class ConfigManager {
 
 	private static Properties prop = new Properties();
 	private static String path = "config/config.properties";
-	private static String env;
+	public static String env;
 	private static final Logger LOGGER = LogManager.getLogger(ConfigManager.class);
 
 	private ConfigManager() {
-
 	}
 
 	static {
 		LOGGER.info("Reading env value passed from terminal");
 		if (System.getProperty("env") == null) {
-			LOGGER.warn("Env variable is not set.....using qa as the env");
+			LOGGER.warn("Env variable is not set....using qa as the env");
 		}
 		env = System.getProperty("env", "qa");
 		LOGGER.info("Running the tests in the env {}", env);
@@ -44,29 +42,24 @@ public class ConfigManager {
 		InputStream input = Thread.currentThread().getContextClassLoader().getResourceAsStream(path);
 
 		if (input == null) {
-			LOGGER.error("Using the Properties file from the path {}", path);
-
-			throw new RuntimeException("Cannot find the file at the path" + path);
+			LOGGER.error("Cannot Find the file at the path", path);
+			throw new RuntimeException("Cannot Find the file at the path" + path);
 		}
 
 		try {
 			prop.load(input);
-
 		} catch (FileNotFoundException e) {
-			LOGGER.error("Cannot find the file in the path {}", path,e);
+			LOGGER.error("Cannot find the file in the path {}", path, e);
 			e.printStackTrace();
 		} catch (IOException e) {
-			e.printStackTrace();
-			LOGGER.error("Something went wrong.... please check the file{} ", path, e);
+			LOGGER.error("Something went wrong... please check the file{} ", path, e);
 
 		}
-
 	}
 
+	@Step("Getting the Property Value from the config file")
 	public static String getProperty(String key) {
 
 		return prop.getProperty(key);
-
 	}
-
 }

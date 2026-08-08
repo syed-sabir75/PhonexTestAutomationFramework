@@ -9,6 +9,7 @@ import org.apache.logging.log4j.Logger;
 import com.api.request.model.UserCredentials;
 import com.dataproviders.api.bean.UserBean;
 
+import io.qameta.allure.Step;
 import io.restassured.response.Response;
 
 public class AuthService {
@@ -17,6 +18,7 @@ public class AuthService {
 	private static final String LOGIN_ENDPOINT="/login";
 	private static final Logger LOGGER = LogManager.getLogger(AuthService.class);
 	
+	@Step("Proforma login request with userCredentials")
 	public Response login(Object userCredentials) {
 		LOGGER.info("Making login request for the payload {}",((UserBean) (userCredentials)).getUsername());
 	     Response response =	given()

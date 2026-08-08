@@ -8,30 +8,33 @@ import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
+import com.api.utils.AllureEnvironmentWriterUtil;
+
 public class APITestListener implements ITestListener {
 
 	private static final Logger LOGGER = LogManager.getLogger(APITestListener.class);
 
 	public void onTestStart(ITestResult result) {
-		LOGGER.info("**********************************************************");
-		LOGGER.info("======== Starting the test {} ========", result.getName());
-		LOGGER.info("======== Test Class {} ========", result.getMethod().getTestClass());
-		LOGGER.info("======== Description {} ========", result.getMethod().getDescription());
-		LOGGER.info("========Groups {} ========", Arrays.toString(result.getMethod().getGroups()));
-		LOGGER.info("**********************************************************");
+		LOGGER.info("****************************************************************");
+		LOGGER.info("========== Starting the test {} ========", result.getName());
+		LOGGER.info("========== Test Class {} ========", result.getMethod().getTestClass());
+		LOGGER.info("========== Description {} ========", result.getMethod().getDescription());
+		LOGGER.info("========== Groups {} ========", Arrays.toString(result.getMethod().getGroups()));
+		LOGGER.info("****************************************************************");
 
 	}
 
 	public void onTestSuccess(ITestResult result) {
 		long startTime = result.getStartMillis();
 		long endTime = result.getEndMillis();
+
 		LOGGER.info("Total Duration:{} ms ", (endTime - startTime));
 		LOGGER.info("{}- Test Passed!!!", result.getName());
 	}
 
 	public void onTestFailure(ITestResult result) {
 		LOGGER.error("{}- Test FAILED!!!", result.getName());
-		LOGGER.error("Error Message", result.getThrowable().getMessage());
+		LOGGER.error("Error Messsage", result.getThrowable().getMessage());
 		LOGGER.error(result.getThrowable());
 	}
 
@@ -40,14 +43,18 @@ public class APITestListener implements ITestListener {
 		LOGGER.error(result.getThrowable());
 	}
 
+
 	public void onStart(ITestContext context) {
-		LOGGER.info("********Starting the Phoenix Framework********");
+		LOGGER.info("*************  Starting the Phoenix Framework  ****************");
+		AllureEnvironmentWriterUtil.createEnvironmentPropertiesFile();
 	}
 
-	
 	public void onFinish(ITestContext context) {
-		LOGGER.info("******** FINISH ********");
+		LOGGER.info("************* FINISH  ****************");
 
 	}
+
+
+
 
 }
